@@ -3,7 +3,7 @@
 
     Date Created: 1/6/2016
 
-    Date Last Modified: 1/8/2016
+    Date Last Modified: 1/12/2016
 
     Purpose:
         This library serves to make the usage and management of linked lists easier.
@@ -26,18 +26,23 @@
     Future revisions:
         support for reverse indexing
             ex.: LL[-1] returns pointer to last element
+
         support for user defined copy constructor callback function
             uses overloaded assignment operator
+
         support for inserting data anywhere in linked list
             ex.: LL.insert(index, T*)
+
         optimize alternate constructor
-	make method to return vector with addresses of all nodes (sys_call to ensure sufficient storage)
+
+        DONE: make method to return vector with addresses of all nodes (sys_call to ensure sufficient storage)
 */
 
 #ifndef LINKEDLIST_H
 #define LINKEDLIST_H
 
 #include <iostream>
+#include <vector>
 
 template<class T>
 class LinkedList {
@@ -63,6 +68,9 @@ class LinkedList {
         void removeEnd(void);   //de-allocates memory associted with last element
         void removeBegin(void); //--                                 first element
 
+        //returns a pointer to a vector of pointers to type T
+        std::vector<T*>* getAddresses(void);
+
     private:
         struct node {
             node* prev; //pointer to last node
@@ -77,7 +85,7 @@ class LinkedList {
 };
 
 template<class T> /* Default constructor */
-LinkedList<T>::LinkedList(void) { //creates one node
+LinkedList<T>::LinkedList(void) {
     num_elements = 0;
 }
 
@@ -152,7 +160,7 @@ template<class T> /* Calls user-specified callback function on each element in t
 void LinkedList<T>::makeCallBack(void) {
 
     if(callback_function == NULL) { //only call functions if the callback has actually been set
-        //std::cout << "Callback function has not been set" << std::endl;
+        std::cout << "Callback function has not been set" << std::endl;
     } else {
         //std::cout << "Function set" << std::endl;
         if(num_elements == 0) {
@@ -189,7 +197,7 @@ T* LinkedList<T>::operator[](int index) {
     return atIndex(index);
 }
 
-template<class T>
+template<class T> /* Remove an element from the end of the linked list */
 void LinkedList<T>::removeEnd(void) {
     if(num_elements == 1) {
         delete first_element;
@@ -207,7 +215,7 @@ void LinkedList<T>::removeEnd(void) {
     }
 }
 
-template<class T>
+template<class T> /* Remove an element from the beginning of the linked list */
 void LinkedList<T>::removeBegin(void) {
     if(num_elements == 1) {
         removeEnd();
@@ -222,16 +230,21 @@ void LinkedList<T>::removeBegin(void) {
     }
 }
 
+template<class T> /* Returns a vector of addresses of all the elements in the linked list */
+std::vector<T*>* LinkedList<T>::getAddresses(void) {
+    std::vector<T*>* v = new std::vector<T*>;
+    if(num_elements > 0) {
+        node* temp_ptr = first_element;
+        while(temp_ptr != NULL) {
+            v->push_back(temp_ptr->datum);
+            temp_ptr = temp_ptr->next;
+        }
+    } else {
+        return NULL;
+    }
+    return v;
+}
+
 #endif // LINKEDLIST_H
 
 //beware of bugs in the above code. I have only proved it correct, not tested it
-
-
-
-
-
-
-
-
-
-
