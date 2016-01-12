@@ -1,0 +1,17 @@
+# depslib dependency file v1.0
+1452110478 source:/home/joe/CodeBlocks/LinkedList/LinkedList.cpp
+
+1452208881 source:/home/joe/CodeBlocks/LinkedList/main.cpp
+	<iostream>
+	"LinkedList.h"
+
+1452230836 /home/joe/CodeBlocks/LinkedList/LinkedList.h
+	<iostream>
+
+1452295488 source:/home/joe/CodeBlocks_BigProjects/LinkedList/main.cpp
+	<iostream>
+	"LinkedList.h"
+
+1452307737 /home/joe/CodeBlocks_BigProjects/LinkedList/LinkedList.h
+	<iostream>
+
