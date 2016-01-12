@@ -31,6 +31,7 @@
         support for inserting data anywhere in linked list
             ex.: LL.insert(index, T*)
         optimize alternate constructor
+	make method to return vector with addresses of all nodes (sys_call to ensure sufficient storage)
 */
 
 #ifndef LINKEDLIST_H
